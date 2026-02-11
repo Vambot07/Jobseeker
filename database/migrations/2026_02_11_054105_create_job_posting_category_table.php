@@ -12,13 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('job_posting_category', function (Blueprint $table) {
-            $table->id(); // job_posting_category_id
-            $table->foreignId('job_id')->constrained('job_postings')->onDelete('cascade');
-            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
+            $table->id();
+            $table->foreignId('job_posting_id')->constrained('job_postings')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->timestamps();
-
-            // Prevent duplicate entries
-            $table->unique(['job_id', 'category_id']);
         });
     }
 
