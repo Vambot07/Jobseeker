@@ -13,12 +13,18 @@ return new class extends Migration
     {
         Schema::create('job_postings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
+            $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->string('job_title');
             $table->text('job_description');
-            $table->enum('job_type',['full-time', 'part-time', 'contract', 'internship', 'temporary']);
-            $table->string('contact_number')->nullable();
-            $table->string('location');
+            $table->string('job_location');
+            $table->string('job_type');
+            $table->string('job_salary');
+            $table->string('job_experience');
+            $table->string('job_qualification');
+            $table->string('job_responsibilities');
+            $table->string('job_requirements');
+            $table->string('job_benefits');
+            $table->string('job_status');
             $table->timestamps();
         });
     }

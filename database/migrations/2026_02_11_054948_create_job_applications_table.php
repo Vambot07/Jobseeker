@@ -12,17 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('job_applications', function (Blueprint $table) {
-            $table->id(); // application_id
-            $table->foreignId('job_id')->constrained('job_postings')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->id();
+            $table->foreignId('job_posting_id')->constrained('job_postings')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('cover_letter')->nullable();
-            $table->string('resume_url')->nullable();
-            $table->date('application_date');
+            $table->string('resume_url'); // Path to uploaded PDF
             $table->enum('status', ['pending', 'reviewed', 'interview', 'accepted', 'rejected'])->default('pending');
             $table->timestamps();
-
-            // Prevent duplicate applications
-            $table->unique(['job_id', 'user_id']);
         });
     }
 
